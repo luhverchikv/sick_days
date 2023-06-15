@@ -34,7 +34,8 @@ async def delete_message(message: types.Message, seconds: int = 0):
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: Message):
     logger.info(f'Пользователь {message.from_user.id} начал взаимодействие')
-    await message.reply('Введите дату и получите новую дату через 126 календарных дней',
+    await message.reply('Привет! \nЭтот бот умеет считать дни временной нетрудоспособности.\n'
+                        'Жми "Выбрать Дату", для удобства воспользуйся предложенным календарем.',
                         reply_markup=start_kb)
 
 
@@ -85,7 +86,7 @@ async def process_simple_calendar(callback_query: CallbackQuery, callback_data: 
             f'Осталось {delta_120.days+1} дней\n'
         )
         asyncio.create_task(delete_message(callback_query.message, 5))
-        asyncio.create_task(delete_message(answer, 300))
+        asyncio.create_task(delete_message(answer, 30))
 
 
 
