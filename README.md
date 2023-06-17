@@ -13,8 +13,7 @@ This is a simple Telegram bot built with aiogram, a pretty high-level library fo
 To install the bot, you need to have Python 3.7 or higher. Clone the repository and install the requirements:
 
 ```bash
-git clone https://github.com/your-repo/telegram-bot.git
-cd telegram-bot
+git clone https://github.com/luhverchikv/sick_days.git
 pip install -r requirements.txt
 ```
 
@@ -24,7 +23,7 @@ To start the bot, you need to set your bot token as an environment variable:
 
 ```bash
 export BOT_TOKEN=your_bot_token
-python bot.py
+python config.py
 ```
 
 Replace `your_bot_token` with the token you received from BotFather.
