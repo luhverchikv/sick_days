@@ -7,7 +7,7 @@ from aiogram_calendar import simple_cal_callback, SimpleCalendar  # pip install 
 from contextlib import suppress
 import datetime
 from config import API_TOKEN
-from loguru import logger
+# from loguru import logger
 import asyncio
 
 # API_TOKEN = '' uncomment and insert your telegram bot API key here
@@ -17,12 +17,12 @@ import asyncio
 bot = Bot(token=API_TOKEN)
 dp = Dispatcher(bot)
 
-logger.add('ihfo.log', format="{time} {level} {message}", level="INFO",
-           rotation="1 week", compression="zip")
+# logger.add('ihfo.log', format="{time} {level} {message}", level="INFO",
+#            rotation="1 week", compression="zip")
 
 # star keybord ('Сегодня', 'Выбрать Дату', 'Помощь')
 start_kb = ReplyKeyboardMarkup(resize_keyboard=True, )
-start_kb.row('Выбрать Дату', 'Помощь')
+start_kb.row('Дата начала ВН', 'Помощь')
 
 
 async def delete_message(message: types.Message, seconds: int = 0):
@@ -33,18 +33,18 @@ async def delete_message(message: types.Message, seconds: int = 0):
 
 @dp.message_handler(commands=['start'])
 async def cmd_start(message: Message):
-    logger.info(f'Пользователь {message.from_user.id} начал взаимодействие')
-    await message.reply('Привет! \nЭтот бот умеет считать дни временной нетрудоспособности.\n'
+    # logger.info(f'Пользователь {message.from_user.id} начал взаимодействие')
+    await message.reply('Тестовый режим\nПривет! \nЭтот бот умеет считать дни временной нетрудоспособности.\n'
                         'Жми "Выбрать Дату", для удобства воспользуйся предложенным календарем.',
                         reply_markup=start_kb)
 
 
-@dp.message_handler(Text(equals=['Выбрать Дату'], ignore_case=True))
+@dp.message_handler(Text(equals=['Дата начала ВН'], ignore_case=True))
 async def nav_cal_handler(message: Message):
     await message.answer("Выберите дату: ", reply_markup=await SimpleCalendar().start_calendar())
     asyncio.create_task(delete_message(message, 5))
     # добавить логгер
-    logger.info(f'Пользователь {message.from_user.id} нажал календарь')
+    # logger.info(f'Пользователь {message.from_user.id} нажал календарь')
 
 
 # simple calendar usage
@@ -92,7 +92,7 @@ async def process_simple_calendar(callback_query: CallbackQuery, callback_data: 
 
 @dp.message_handler(Text(equals=['Помощь'], ignore_case=True))
 async def simple_cal_handler(message: Message):
-    logger.info(f'Пользователь {message.from_user.id} нажал "Помощь"')
+    # logger.info(f'Пользователь {message.from_user.id} нажал "Помощь"')
     answer = await message.answer(f'Мой <a href="https://t.me/luhverchik">номер</a>',
                                   parse_mode=ParseMode.HTML)
     asyncio.create_task(delete_message(message, 5))
